@@ -28,6 +28,18 @@ variable "ingress_ports_and_cidr_blocks" {
   # }
 }
 
+variable "egress_ports_and_cidr_blocks" {
+  description = "List of allowed ports with cidr_blocks"
+  type        = list(map(string))
+  default = []
+  # {
+  #   protocol = "tcp"
+  #   from_port = 22
+  #   to_port = 22
+  #   cidr_blocks = "10.0.0.0/16,10.10.0.0/16"
+  # }
+}
+
 variable "tags" {
   type    = map(string)
 }

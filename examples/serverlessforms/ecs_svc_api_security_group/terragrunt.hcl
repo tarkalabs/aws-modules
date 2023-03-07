@@ -22,9 +22,18 @@ inputs = {
   ingress_ports_and_cidr_blocks = [
     {
       protocol = "tcp"
-      from_port = 22
-      to_port = 22
+      from_port = 80
+      to_port = 80
       cidr_blocks = "${dependency.networking.outputs.vpc_cidr_block}"
+    }
+  ]
+
+  egress_ports_and_cidr_blocks = [
+    {
+      protocol = "-1"
+      from_port = 0
+      to_port = 65535
+      cidr_blocks = "0.0.0.0/0"
     }
   ]
 
