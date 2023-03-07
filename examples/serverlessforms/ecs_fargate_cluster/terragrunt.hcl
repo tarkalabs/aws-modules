@@ -1,4 +1,4 @@
-include {
+include "root" {
   path = find_in_parent_folders()
 }
 
@@ -11,11 +11,13 @@ terraform {
 }
 
 inputs = {
-  cluster_name = "${local.tgvars.env_prefix}-serverlessforms"
+  cluster_name = "${local.tgvars.env_prefix}-${local.tgvars.app_name}"
   default_capacity_provider = "FARGATE"
 
   tags = {
+    Application = local.tgvars.app_name
+    IacProvider = "terragrunt"
     Environment = local.tgvars.environment
-    AdminEmail = local.tgvars.admin_email
+    AdminEmail  = local.tgvars.admin_email
   }
 }

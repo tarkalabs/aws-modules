@@ -9,5 +9,5 @@ module "network" {
   private_subnets = []
   public_subnets  = var.public_subnets_cidr
 
-  tags = merge({CreatedBy = "terragrunt"}, var.tags)
+  tags = var.tags
 }

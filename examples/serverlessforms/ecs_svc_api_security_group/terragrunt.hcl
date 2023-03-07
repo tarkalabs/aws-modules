@@ -1,0 +1,37 @@
+include "root" {
+  path = find_in_parent_folders()
+}
+
+dependency "networking" {
+  config_path = "${get_original_terragrunt_dir()}/../networking"
+}
+
+locals {
+  tgvars = yamldecode(file("${get_original_terragrunt_dir()}/../tgvars.yml"))
+}
+
+terraform {
+  source = "${get_path_to_repo_root()}//networking/security-group"
+}
+
+inputs = {
+  name        = "${local.tgvars.env_prefix}-${local.tgvars.app_name}-api-sg"
+  description = "${local.tgvars.app_name} api security group"
+  vpc_id      = dependency.networking.outputs.vpc_id
+
+  ingress_ports_and_cidr_blocks = [
+    {
+      protocol = "tcp"
+      from_port = 22
+      to_port = 22
+      cidr_blocks = "${dependency.networking.outputs.vpc_cidr_block}"
+    }
+  ]
+
+  tags = {
+    Application = local.tgvars.app_name
+    IacProvider = "terragrunt"
+    Environment = local.tgvars.environment
+    AdminEmail  = local.tgvars.admin_email
+  }
+}

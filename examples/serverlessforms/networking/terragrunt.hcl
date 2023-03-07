@@ -1,4 +1,4 @@
-include {
+include "root" {
   path = find_in_parent_folders()
 }
 
@@ -18,7 +18,9 @@ inputs = {
   public_subnets_cidr = local.tgvars.public_subnets_cidr
 
   tags = {
+    Application = local.tgvars.app_name
+    IacProvider = "terragrunt"
     Environment = local.tgvars.environment
-    AdminEmail = local.tgvars.admin_email
+    AdminEmail  = local.tgvars.admin_email
   }
 }

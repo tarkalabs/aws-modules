@@ -1,4 +1,6 @@
 ---
+app_name: serverlessforms
+app_slug_name: slf
 environment: production
 env_prefix: prod
 admin_email: madhav@tarkalabs.com
@@ -8,3 +10,5 @@ aws_region: us-east-1
 vpc_cidr_block: 10.20.0.0/16
 availability_zones: ["us-east-1a", "us-east-1b"]
 public_subnets_cidr: ["10.20.0.0/19", "10.20.32.0/19"]
+
+# ECS related

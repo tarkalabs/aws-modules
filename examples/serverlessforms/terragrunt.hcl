@@ -21,7 +21,7 @@ remote_state {
   config = {
     bucket = local.tgvars.tf_backend_s3_bucket
 
-    key = "serverlessforms/${local.tgvars.env_prefix}/${path_relative_to_include()}/terraform.tfstate"
+    key = "${local.tgvars.app_name}/${local.tgvars.env_prefix}/${path_relative_to_include()}/terraform.tfstate"
     region         = local.tgvars.tf_backend_s3_bucket_region
     encrypt        = true
   }

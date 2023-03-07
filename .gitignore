@@ -1,3 +1,5 @@
+terragrunt-debug.tfvars.json
+
 .*.sw?
 .idea
 terragrunt.iml
