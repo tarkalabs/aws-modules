@@ -3,19 +3,19 @@ include "root" {
 }
 
 dependency "api_sg" {
-  config_path = "${get_original_terragrunt_dir()}/../ecs_svc_api_security_group"
+  config_path = "${get_parent_terragrunt_dir()}/ecs/sg_api_svc"
 }
 
 dependency "ecs_cluster" {
-  config_path = "${get_original_terragrunt_dir()}/../ecs_fargate_cluster"
+  config_path = "${get_parent_terragrunt_dir()}/ecs/fargate_cluster"
 }
 
 dependency "networking" {
-  config_path = "${get_original_terragrunt_dir()}/../networking"
+  config_path = "${get_parent_terragrunt_dir()}/networking"
 }
 
 locals {
-  tgvars = yamldecode(file("${get_original_terragrunt_dir()}/../tgvars.yml"))
+  tgvars = yamldecode(file("${get_parent_terragrunt_dir()}/tgvars.yml"))
 }
 
 terraform {

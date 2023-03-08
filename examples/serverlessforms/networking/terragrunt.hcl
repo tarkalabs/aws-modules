@@ -3,7 +3,7 @@ include "root" {
 }
 
 locals {
-  tgvars = yamldecode(file("${get_original_terragrunt_dir()}/../tgvars.yml"))
+  tgvars = yamldecode(file("${get_parent_terragrunt_dir()}/tgvars.yml"))
 }
 
 terraform {
