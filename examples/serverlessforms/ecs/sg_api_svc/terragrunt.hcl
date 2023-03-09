@@ -1,17 +1,17 @@
 include "root" {
-  path = find_in_parent_folders()
+  path        = find_in_parent_folders()
 }
 
 dependency "networking" {
-  config_path = "${get_parent_terragrunt_dir()}/networking"
+  config_path  = "${get_parent_terragrunt_dir()}/networking"
 }
 
 locals {
-  tgvars = yamldecode(file("${get_parent_terragrunt_dir()}/tgvars.yml"))
+  tgvars      = yamldecode(file("${get_parent_terragrunt_dir()}/tgvars.yml"))
 }
 
 terraform {
-  source = "${get_path_to_repo_root()}//networking/security-group"
+  source      = "${get_path_to_repo_root()}//networking/security-group"
 }
 
 inputs = {
@@ -21,14 +21,14 @@ inputs = {
 
   ingress_ports_and_cidr_blocks = [
     {
-      protocol = "tcp"
-      from_port = 80
-      to_port = 80
+      protocol    = "tcp"
+      from_port   = 80
+      to_port     = 80
       cidr_blocks = "${dependency.networking.outputs.vpc_cidr_block}"
     }
   ]
 
-  egress_ports_and_cidr_blocks = [
+  egress_ports_and_cidr_blocks  = [
     {
       protocol = "-1"
       from_port = 0
@@ -37,7 +37,7 @@ inputs = {
     }
   ]
 
-  tags = {
+  tags                          = {
     Application = local.tgvars.app_name
     IacProvider = "terragrunt"
     Environment = local.tgvars.environment

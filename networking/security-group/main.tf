@@ -2,7 +2,7 @@ resource "aws_security_group" "main" {
   name        = var.name
   description = var.description
   vpc_id      = var.vpc_id
-  tags = var.tags
+  tags        = var.tags
 }
 
 resource "aws_security_group_rule" "ingress_cidr_blocks" {

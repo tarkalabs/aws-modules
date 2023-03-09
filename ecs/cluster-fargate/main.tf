@@ -1,12 +1,11 @@
 resource "aws_cloudwatch_log_group" "ecs_cluster_log" {
   name              = "/aws/ecs/${var.cluster_name}"
   retention_in_days = var.logs_retention_period
-
-  tags = var.tags
+  tags              = var.tags
 }
 
 resource "aws_ecs_cluster" "main" {
-  name = var.cluster_name
+  name    = var.cluster_name
 
   setting {
     name  = "containerInsights"
@@ -23,12 +22,11 @@ resource "aws_ecs_cluster" "main" {
     }
   }
 
-  tags = var.tags
+  tags    = var.tags
 }
 
 resource "aws_ecs_cluster_capacity_providers" "fargate" {
-  cluster_name = aws_ecs_cluster.main.name
-
+  cluster_name       = aws_ecs_cluster.main.name
   capacity_providers = ["FARGATE", "FARGATE_SPOT"]
 
   default_capacity_provider_strategy {

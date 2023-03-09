@@ -1,25 +1,25 @@
 variable "name" {
   description = "Name of the security group"
-  type = string
-  default = "terragrunt-poc-sg"
+  type        = string
+  default     = "terragrunt-poc-sg"
 }
 
 variable "description" {
   description = "Description for the security group"
-  type = string
-  default = "Terragrunt poc security group"
+  type        = string
+  default     = "Terragrunt poc security group"
 }
 
 variable "vpc_id" {
   description = "vpc id to use for the security group"
-  type = string
-  default = ""
+  type        = string
+  default     = ""
 }
 
 variable "ingress_ports_and_cidr_blocks" {
   description = "List of allowed ports with cidr_blocks"
   type        = list(map(string))
-  default = []
+  default     = []
   # {
   #   protocol = "tcp"
   #   from_port = 22
@@ -31,7 +31,7 @@ variable "ingress_ports_and_cidr_blocks" {
 variable "egress_ports_and_cidr_blocks" {
   description = "List of allowed ports with cidr_blocks"
   type        = list(map(string))
-  default = []
+  default     = []
   # {
   #   protocol = "tcp"
   #   from_port = 22
@@ -41,5 +41,5 @@ variable "egress_ports_and_cidr_blocks" {
 }
 
 variable "tags" {
-  type    = map(string)
+  type        = map(string)
 }

@@ -7,13 +7,12 @@ locals {
 }
 
 terraform {
-  source  = "${get_path_to_repo_root()}//ecs/cluster-fargate"
+  source  = "${get_path_to_repo_root()}//s3/encrypted_private_bucket"
 }
 
 inputs    = {
-  cluster_name              = "${local.tgvars.env_prefix}-${local.tgvars.app_name}"
-  default_capacity_provider = "FARGATE"
-  tags                      = {
+  name    = "${local.tgvars.app_slug_name}-${local.tgvars.env_prefix}-assets"
+  tags    = {
     Application = local.tgvars.app_name
     IacProvider = "terragrunt"
     Environment = local.tgvars.environment

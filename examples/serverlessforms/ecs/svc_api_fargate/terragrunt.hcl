@@ -1,28 +1,28 @@
 include "root" {
-  path = find_in_parent_folders()
+  path        = find_in_parent_folders()
 }
 
 dependency "api_sg" {
-  config_path = "${get_parent_terragrunt_dir()}/ecs/sg_api_svc"
+  config_path  = "${get_parent_terragrunt_dir()}/ecs/sg_api_svc"
 }
 
 dependency "ecs_cluster" {
-  config_path = "${get_parent_terragrunt_dir()}/ecs/fargate_cluster"
+  config_path  = "${get_parent_terragrunt_dir()}/ecs/fargate_cluster"
 }
 
 dependency "networking" {
-  config_path = "${get_parent_terragrunt_dir()}/networking"
+  config_path  = "${get_parent_terragrunt_dir()}/networking"
 }
 
 locals {
-  tgvars = yamldecode(file("${get_parent_terragrunt_dir()}/tgvars.yml"))
+  tgvars      = yamldecode(file("${get_parent_terragrunt_dir()}/tgvars.yml"))
 }
 
 terraform {
-  source = "${get_path_to_repo_root()}//ecs/service"
+  source      = "${get_path_to_repo_root()}//ecs/service"
 }
 
-inputs = {
+inputs        = {
   name                = "${local.tgvars.env_prefix}-${local.tgvars.app_name}-api"
   cluster_name        = dependency.ecs_cluster.outputs.cluster_name
   launch_type         = "FARGATE"

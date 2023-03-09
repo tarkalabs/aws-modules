@@ -107,7 +107,7 @@ variable "placement_constraints" {
 }
 
 variable "tags" {
-  type    = map(string)
+  type        = map(string)
 }
 
 variable "propagate_tags_from" {
