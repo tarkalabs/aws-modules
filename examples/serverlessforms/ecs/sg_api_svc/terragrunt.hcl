@@ -18,6 +18,12 @@ inputs = {
   name        = "${local.tgvars.env_prefix}-${local.tgvars.app_name}-api-sg"
   description = "${local.tgvars.app_name} api security group"
   vpc_id      = dependency.networking.outputs.vpc_id
+  tags        = {
+    Application   = local.tgvars.app_name
+    IacProvider   = "terragrunt"
+    Environment   = local.tgvars.environment
+    AdminEmail    = local.tgvars.admin_email
+  }
 
   ingress_ports_and_cidr_blocks = [
     {
@@ -36,11 +42,4 @@ inputs = {
       cidr_blocks = "0.0.0.0/0"
     }
   ]
-
-  tags                          = {
-    Application = local.tgvars.app_name
-    IacProvider = "terragrunt"
-    Environment = local.tgvars.environment
-    AdminEmail  = local.tgvars.admin_email
-  }
 }

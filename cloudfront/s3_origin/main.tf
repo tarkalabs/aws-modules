@@ -11,6 +11,7 @@ module "cloudfront" {
   retain_on_delete    = var.retain_on_delete
   wait_for_deployment = var.wait_for_deployment
   default_root_object = var.default_root_object
+  viewer_certificate   = var.viewer_certificate
 
   create_origin_access_identity = true
   origin_access_identities = {

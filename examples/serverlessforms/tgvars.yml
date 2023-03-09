@@ -1,12 +1,20 @@
----
+# Application related
 app_name:                     serverlessforms
 app_slug_name:                slf
 environment:                  production
 env_prefix:                    prod
 admin_email:                  madhav@tarkalabs.com
+
+# Terraform state storage related
 tf_backend_s3_bucket_region:  us-east-1
 tf_backend_s3_bucket:         tarkalabs-terraform
+
+# Networking related
 aws_region:                   us-east-1
 vpc_cidr_block:               10.20.0.0/16
 availability_zones:           ["us-east-1a", "us-east-1b"]
 public_subnets_cidr:          ["10.20.0.0/19", "10.20.32.0/19"]
+
+# ACM related
+domain_name:                  serverlessforms.com
+subject_alternative_names:    ["*.serverlessforms.com"]

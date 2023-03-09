@@ -83,6 +83,29 @@ variable "viewer_protocol_policy" {
   default     = "redirect-to-https"
 }
 
+variable "viewer_certificate" {
+  description = "The SSL configuration for this distribution"
+  type        = any
+  default     = null
+  # {
+  #   acm_certificate_arn       = ""
+  #   minimum_protocol_version = "TLSv1"
+  #   ssl_support_method       = "sni-only"
+  # }
+}
+
+variable "acm_certificate_arn" {
+  description = "Aws acm certificate ARN to use for cloudfront distribution"
+  type        = string
+  default     = null
+}
+
+variable "ssl_minimum_protocol_version" {
+  description = "SSL minimum protocol version to use for cloudfront distribution"
+  type        = string
+  default     = "TLSv1"
+}
+
 variable "cache_policy_id" {
   type        = string
   default     = "658327ea-f89d-4fab-a63d-7e88639e58f6" # Managed-CachingOptimized

@@ -13,9 +13,9 @@ terraform {
 inputs    = {
   name    = "${local.tgvars.app_slug_name}-${local.tgvars.env_prefix}-assets"
   tags    = {
-    Application = local.tgvars.app_name
-    IacProvider = "terragrunt"
-    Environment = local.tgvars.environment
-    AdminEmail  = local.tgvars.admin_email
+    Application   = local.tgvars.app_name
+    IacProvider   = "terragrunt"
+    Environment   = local.tgvars.environment
+    AdminEmail    = local.tgvars.admin_email
   }
 }
