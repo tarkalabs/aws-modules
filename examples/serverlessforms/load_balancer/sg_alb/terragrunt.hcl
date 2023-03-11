@@ -15,8 +15,8 @@ terraform {
 }
 
 inputs = {
-  name        = "${local.tgvars.env_prefix}-${local.tgvars.app_name}-api-sg"
-  description = "${local.tgvars.app_name} api security group"
+  name        = "${local.tgvars.env_prefix}-${local.tgvars.app_name}-lb-sg"
+  description = "${local.tgvars.app_name} load balancer security group"
   vpc_id      = dependency.networking.outputs.vpc_id
   tags        = local.tgvars.tags
 
@@ -26,7 +26,14 @@ inputs = {
       protocol    = "tcp"
       from_port   = 80
       to_port     = 80
-      cidr_blocks = [dependency.networking.outputs.vpc_cidr_block]
+      cidr_blocks = local.tgvars.open_to_all_cidr_blocks
+    },
+    ingress_allow_https = {
+      type        = "ingress"
+      protocol    = "tcp"
+      from_port   = 443
+      to_port     = 443
+      cidr_blocks = local.tgvars.open_to_all_cidr_blocks
     },
     egress_allow_all    = {
       type        = "egress"

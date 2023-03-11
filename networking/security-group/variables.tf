@@ -16,27 +16,17 @@ variable "vpc_id" {
   default     = ""
 }
 
-variable "ingress_ports_and_cidr_blocks" {
+variable "security_group_rules" {
   description = "List of allowed ports with cidr_blocks"
-  type        = list(map(string))
-  default     = []
+  type        = any
+  default     = {}
   # {
-  #   protocol = "tcp"
-  #   from_port = 22
-  #   to_port = 22
-  #   cidr_blocks = "10.0.0.0/16,10.10.0.0/16"
-  # }
-}
-
-variable "egress_ports_and_cidr_blocks" {
-  description = "List of allowed ports with cidr_blocks"
-  type        = list(map(string))
-  default     = []
-  # {
-  #   protocol = "tcp"
-  #   from_port = 22
-  #   to_port = 22
-  #   cidr_blocks = "10.0.0.0/16,10.10.0.0/16"
+  #   ingress_all_ssh = {
+  #     protocol = "tcp"
+  #     from_port = 22
+  #     to_port = 22
+  #     cidr_blocks = ["10.0.0.0/16", "10.10.0.0/16"]
+  #   }
   # }
 }
 

@@ -5,26 +5,21 @@ resource "aws_security_group" "main" {
   tags        = var.tags
 }
 
-resource "aws_security_group_rule" "ingress_cidr_blocks" {
-  type        = "ingress"
+resource "aws_security_group_rule" "this" {
+  for_each = { for k, v in var.security_group_rules : k => v }
+
+  # Required
   security_group_id = aws_security_group.main.id
+  protocol          = each.value.protocol
+  from_port         = each.value.from_port
+  to_port           = each.value.to_port
+  type              = each.value.type
 
-  count       = length(var.ingress_ports_and_cidr_blocks)
-
-  from_port   = var.ingress_ports_and_cidr_blocks[count.index].from_port
-  to_port     = var.ingress_ports_and_cidr_blocks[count.index].to_port
-  cidr_blocks = split(",", var.ingress_ports_and_cidr_blocks[count.index].cidr_blocks)
-  protocol    = var.ingress_ports_and_cidr_blocks[count.index].protocol
-}
-
-resource "aws_security_group_rule" "egress_cidr_blocks" {
-  type        = "egress"
-  security_group_id = aws_security_group.main.id
-
-  count       = length(var.egress_ports_and_cidr_blocks)
-
-  from_port   = var.egress_ports_and_cidr_blocks[count.index].from_port
-  to_port     = var.egress_ports_and_cidr_blocks[count.index].to_port
-  cidr_blocks = split(",", var.egress_ports_and_cidr_blocks[count.index].cidr_blocks)
-  protocol    = var.egress_ports_and_cidr_blocks[count.index].protocol
+  # Optional
+  description              = lookup(each.value, "description", null)
+  cidr_blocks              = lookup(each.value, "cidr_blocks", null)
+  ipv6_cidr_blocks         = lookup(each.value, "ipv6_cidr_blocks", null)
+  prefix_list_ids          = lookup(each.value, "prefix_list_ids", null)
+  self                     = lookup(each.value, "self", null)
+  source_security_group_id = lookup(each.value, "source_security_group_id", null)
 }

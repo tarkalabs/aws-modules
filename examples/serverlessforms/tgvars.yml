@@ -1,9 +1,16 @@
 # Application related
 app_name:                     serverlessforms
 app_slug_name:                slf
-environment:                  production
 env_prefix:                    prod
-admin_email:                  madhav@tarkalabs.com
+# api_backend_domains:          ["serverlessforms.com", "www.serverlessforms.com"]
+api_backend_paths:            ["/api"]
+api_backend_domains:          ["cdn.serverlessforms.com"]
+tags:                         {
+  Application: "serverlessforms",
+  IacProvider: "terragrunt",
+  Environment: "production",
+  AdminEmail:  "madhav@tarkalabs.com"
+}
 
 # Terraform state storage related
 tf_backend_s3_bucket_region:  us-east-1
@@ -14,7 +21,11 @@ aws_region:                   us-east-1
 vpc_cidr_block:               10.20.0.0/16
 availability_zones:           ["us-east-1a", "us-east-1b"]
 public_subnets_cidr:          ["10.20.0.0/19", "10.20.32.0/19"]
+open_to_all_cidr_blocks:      ["0.0.0.0/0"] # helps when you want to integrate ipv6 as well
 
 # ACM related
 domain_name:                  serverlessforms.com
 subject_alternative_names:    ["*.serverlessforms.com"]
+
+# Cloudfront related
+cloudfront_aliases:           ["cdn.serverlessforms.com"]

@@ -13,10 +13,5 @@ terraform {
 inputs    = {
   domain_name                 = local.tgvars.domain_name
   subject_alternative_names   = local.tgvars.subject_alternative_names
-  tags                        = {
-    Application   = local.tgvars.app_name
-    IacProvider   = "terragrunt"
-    Environment   = local.tgvars.environment
-    AdminEmail    = local.tgvars.admin_email
-  }
+  tags                        = local.tgvars.tags
 }
