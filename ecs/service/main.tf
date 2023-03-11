@@ -67,9 +67,9 @@ resource "aws_ecs_service" "main" {
 
   # Conditionally configure load balancer blocks with target group arns
   dynamic "load_balancer" {
-    for_each  = var.enable_load_balancer ? [1] : []
+    for_each  = var.enable_load_balancer && length(var.target_group_arns) != 0 ? var.target_group_arns : []
     content {
-      target_group_arn = var.target_group_arns
+      target_group_arn = load_balancer.value
       container_name   = var.container_name
       container_port   = var.container_port
     }
