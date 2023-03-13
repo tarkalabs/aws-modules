@@ -26,3 +26,8 @@ open_to_all_cidr_blocks:      ["0.0.0.0/0"] # helps when you want to integrate i
 # ACM related
 domain_name:                  serverlessforms.com
 subject_alternative_names:    ["*.serverlessforms.com"]
+
+# Application secrets related
+secrets: {
+
+}
