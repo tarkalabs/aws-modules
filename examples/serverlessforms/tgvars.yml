@@ -2,9 +2,9 @@
 app_name:                     serverlessforms
 app_slug_name:                slf
 env_prefix:                    prod
-# api_backend_domains:          ["serverlessforms.com", "www.serverlessforms.com"]
-api_backend_paths:            ["/api"]
-api_backend_domains:          ["cdn.serverlessforms.com"]
+# app_domains:                  ["serverlessforms.com", "www.serverlessforms.com"]
+app_domains:                  ["cdn.serverlessforms.com"]
+api_path_prefix:               "/api"
 tags:                         {
   Application: "serverlessforms",
   IacProvider: "terragrunt",
@@ -26,6 +26,3 @@ open_to_all_cidr_blocks:      ["0.0.0.0/0"] # helps when you want to integrate i
 # ACM related
 domain_name:                  serverlessforms.com
 subject_alternative_names:    ["*.serverlessforms.com"]
-
-# Cloudfront related
-cloudfront_aliases:           ["cdn.serverlessforms.com"]

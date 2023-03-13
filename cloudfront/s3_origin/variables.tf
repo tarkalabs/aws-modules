@@ -111,3 +111,15 @@ variable "cache_policy_id" {
   default     = "658327ea-f89d-4fab-a63d-7e88639e58f6" # Managed-CachingOptimized
   # https://us-east-1.console.aws.amazon.com/cloudfront/v3/home?region=us-east-1#/policies/cache
 }
+
+variable "extra_origins" {
+  description = "One or more origins for this distribution (multiples allowed)."
+  type        = any
+  default     = null
+}
+
+variable "ordered_cache_behavior" {
+  description = "An ordered list of cache behaviors resource for this distribution. List from top to bottom in order of precedence. The topmost cache behavior will have precedence 0."
+  type        = any
+  default     = []
+}

@@ -73,10 +73,10 @@ inputs = {
       ]
 
       conditions = [{
-          path_patterns      = local.tgvars.api_backend_paths
+          path_patterns      = [local.tgvars.api_path_prefix]
         },
         {
-          host_headers       = local.tgvars.api_backend_domains
+          host_headers       = local.tgvars.app_domains
         }
       ]
     }

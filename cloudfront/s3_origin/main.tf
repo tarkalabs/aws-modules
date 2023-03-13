@@ -15,20 +15,19 @@ module "cloudfront" {
 
   create_origin_access_identity = true
   origin_access_identities = {
-    s3_bucket_main = "CloudFront access to s3 bucket ${var.s3_bucket_name}"
+    s3_bucket_main         = "CloudFront access to s3 bucket ${var.s3_bucket_name}"
   }
 
-  logging_config = var.logging_enabled ? var.logging_config : {}
-
-  origin = {
+  logging_config    = var.logging_enabled ? var.logging_config : {}
+  origin           = merge(var.extra_origins, {
     s3_bucket_main = {
       domain_name              = var.s3_bucket_regional_domain_name
       origin_access_control_id = aws_cloudfront_origin_access_control.s3_sign.id
       origin_id                = "s3_bucket_main"
     }
-  }
+  })
 
-  default_cache_behavior = {
+  default_cache_behavior   = {
     path_pattern           = "*"
     target_origin_id       = "s3_bucket_main"
     viewer_protocol_policy = var.viewer_protocol_policy
@@ -37,6 +36,8 @@ module "cloudfront" {
     allowed_methods        = ["GET", "HEAD"]
     compress               = true
   }
+
+  ordered_cache_behavior   = var.ordered_cache_behavior
 }
 
 resource "aws_cloudfront_origin_access_control" "s3_sign" {
