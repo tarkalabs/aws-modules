@@ -8,7 +8,7 @@ resource "aws_ecs_task_definition" "main" {
   requires_compatibilities  = var.compatibilities
   task_role_arn             = var.task_role_arn
   # exec role is required when you want logs to push to cloudwatch / pull ecr image for fargate tasks
-  execution_role_arn        = var.execution_role_arn == null ? data.aws_iam_role.task_exec_role.arn : var.execution_role_arn
+  execution_role_arn        = var.task_exec_role_required ? data.aws_iam_role.task_exec_role[0].arn : null
   container_definitions      = jsonencode([{
     essential    = true
     name         = "${var.container_name}"
@@ -21,7 +21,8 @@ resource "aws_ecs_task_definition" "main" {
 }
 
 data "aws_iam_role" "task_exec_role" {
-  name = "ecsTaskExecutionRole"
+  count           = var.task_exec_role_required ? 1 : 0
+  name            = var.task_exec_role_name
 }
 
 resource "aws_ecs_service" "main" {

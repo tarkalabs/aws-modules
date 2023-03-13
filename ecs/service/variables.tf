@@ -165,10 +165,16 @@ variable "task_role_arn" {
   default     = null
 }
 
-variable "execution_role_arn" {
-  description = "Role ARN to use for the task execution"
+variable "task_exec_role_required" {
+  description = "Task requires execution role?"
+  type        = bool
+  default     = false
+}
+
+variable "task_exec_role_name" {
+  description = "Name to use for fetching role arn to include in the task execution"
   type        = string
-  default     = null
+  default     = "ecsTaskExecutionRole"
 }
 
 variable "logging_config" {

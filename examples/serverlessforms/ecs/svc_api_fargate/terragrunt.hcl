@@ -37,6 +37,7 @@ inputs        = {
   security_group_ids    = [dependency.api_sg.outputs.security_group_id]
   subnet_ids            = dependency.networking.outputs.public_subnet_ids
   enable_load_balancer  = false
+
   task_def_family_name  = "${local.tgvars.env_prefix}-${local.tgvars.app_slug_name}-api"
   container_name        = "api"
   container_port        = 4000
@@ -52,6 +53,7 @@ inputs        = {
     }
   }
 
-  enable_load_balancer  = true
-  target_group_arns     = [dependency.load_balancer.outputs.target_group_arns[0]]
+  task_exec_role_required  = true
+  enable_load_balancer     = true
+  target_group_arns        = [dependency.load_balancer.outputs.target_group_arns[0]]
 }
