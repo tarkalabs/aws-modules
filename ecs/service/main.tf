@@ -2,11 +2,13 @@ resource "aws_ecs_task_definition" "main" {
   family         = var.task_def_family_name
   tags           = var.tags
   network_mode   = var.network_mode
-  requires_compatibilities  = var.compatibilities
-
   cpu            = "${var.container_cpu}"
   memory         = "${var.container_memory}"
 
+  requires_compatibilities  = var.compatibilities
+  task_role_arn             = var.task_role_arn
+  # exec role is required when you want logs to push to cloudwatch / pull ecr image for fargate tasks
+  execution_role_arn        = var.execution_role_arn == null ? data.aws_iam_role.task_exec_role.arn : var.execution_role_arn
   container_definitions      = jsonencode([{
     essential    = true
     name         = "${var.container_name}"
@@ -14,7 +16,12 @@ resource "aws_ecs_task_definition" "main" {
     portMappings = [{
       containerPort = "${var.container_port}"
     }]
+    logConfiguration = length(var.logging_config) > 0 ? var.logging_config : null
   }])
+}
+
+data "aws_iam_role" "task_exec_role" {
+  name = "ecsTaskExecutionRole"
 }
 
 resource "aws_ecs_service" "main" {

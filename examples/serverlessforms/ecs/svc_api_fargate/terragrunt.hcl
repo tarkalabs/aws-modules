@@ -40,6 +40,17 @@ inputs        = {
   task_def_family_name  = "${local.tgvars.env_prefix}-${local.tgvars.app_slug_name}-api"
   container_name        = "api"
   container_port        = 4000
+  container_cpu         = 256
+  container_memory      = 512
+
+  logging_config         = {
+    logDriver = "awslogs"
+    options   = {
+      awslogs-group        = "/ecs/${local.tgvars.env_prefix}-${local.tgvars.app_name}-api"
+      awslogs-region       = local.tgvars.aws_region
+      awslogs-stream-prefix = local.tgvars.app_name
+    }
+  }
 
   enable_load_balancer  = true
   target_group_arns     = [dependency.load_balancer.outputs.target_group_arns[0]]

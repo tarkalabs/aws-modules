@@ -158,3 +158,25 @@ variable "container_memory" {
   type        = number
   default     = 512
 }
+
+variable "task_role_arn" {
+  description = "Role ARN to use for the task"
+  type        = string
+  default     = null
+}
+
+variable "execution_role_arn" {
+  description = "Role ARN to use for the task execution"
+  type        = string
+  default     = null
+}
+
+variable "logging_config" {
+  description = "Cloudwatch container logging config"
+  type        = object({
+    logDriver = string
+    options   = optional(map(string), null)
+    secretOptions = optional(list(map(string)), null)
+  })
+  default     = null
+}
