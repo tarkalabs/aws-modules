@@ -18,21 +18,20 @@ inputs = {
   zone_name   = local.tgvars.domain_name
   records     = [
     {
-      name    = ""
-      type    = "A"
-      alias   = {
+      name        = ""
+      type        = "A"
+      alias       = {
         name      = dependency.cloudfront.outputs.domain_name
         zone_id   = dependency.cloudfront.outputs.hosted_zone_id
       }
     },
     {
-      name    = "www"
-      type    = "A"
-      alias   = {
+      name        = "www"
+      type        = "A"
+      alias       = {
         name      = dependency.cloudfront.outputs.domain_name
         zone_id   = dependency.cloudfront.outputs.hosted_zone_id
       }
     }
   ]
-
 }
