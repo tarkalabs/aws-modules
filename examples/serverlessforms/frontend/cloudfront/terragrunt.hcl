@@ -28,7 +28,7 @@ inputs       = {
   comment    = "Cloudfront distribution for ${local.tgvars.env_prefix} ${local.tgvars.app_name} application"
   tags       = local.tgvars.tags
 
-  wait_for_deployment             = false
+  wait_for_deployment             = true
   s3_bucket_name                  = dependency.assets_s3_bucket.outputs.id
   s3_bucket_arn                   = dependency.assets_s3_bucket.outputs.arn
   default_root_object             = "index.html"

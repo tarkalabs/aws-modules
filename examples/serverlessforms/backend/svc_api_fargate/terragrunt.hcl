@@ -3,11 +3,11 @@ include "root" {
 }
 
 dependency "api_sg" {
-  config_path  = "${get_parent_terragrunt_dir()}/ecs/sg_api_svc"
+  config_path  = "${get_parent_terragrunt_dir()}/backend/sg_api_svc"
 }
 
 dependency "ecs_cluster" {
-  config_path  = "${get_parent_terragrunt_dir()}/ecs/fargate_cluster"
+  config_path  = "${get_parent_terragrunt_dir()}/backend/fargate_cluster"
 }
 
 dependency "load_balancer" {
