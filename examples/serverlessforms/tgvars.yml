@@ -29,6 +29,5 @@ subject_alternative_names:    ["*.serverlessforms.com"]
 # Application secrets related
 # As files will be residing in git, it's better to keep non sensitive secrets here
 secrets:
-  GOOGLE_REDIRECT_URI:        https://cdn.serverlessforms.com/api/oauth/callback
+  GOOGLE_REDIRECT_URI:        https://serverlessforms.com/api/oauth/callback
   GOOGLE_AUTH_URI:            https://accounts.google.com/o/oauth2/v2/auth
-  AKISMET_ROOT:               cdn.serverlessforms.com
