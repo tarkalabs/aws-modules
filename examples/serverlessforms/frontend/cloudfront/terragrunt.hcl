@@ -54,7 +54,7 @@ inputs       = {
   }
   ordered_cache_behavior          = [
     {
-      path_pattern                = "/api*"
+      path_pattern                = local.tgvars.api_path_prefix
       target_origin_id            = local.api_origin_id
       viewer_protocol_policy      = "redirect-to-https"
       allowed_methods             = ["GET", "HEAD", "OPTIONS", "PUT", "POST", "PATCH", "DELETE"]

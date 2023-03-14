@@ -2,8 +2,7 @@
 app_name:                     serverlessforms
 app_slug_name:                slf
 env_prefix:                    prod
-# app_domains:                  ["serverlessforms.com", "www.serverlessforms.com"]
-app_domains:                  ["cdn.serverlessforms.com"]
+app_domains:                  ["serverlessforms.com", "www.serverlessforms.com"]
 api_path_prefix:               "/api/*"
 tags:
   Application: serverlessforms
