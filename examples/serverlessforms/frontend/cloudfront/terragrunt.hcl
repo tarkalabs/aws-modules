@@ -56,7 +56,7 @@ inputs       = {
     {
       path_pattern                = "/api*"
       target_origin_id            = local.api_origin_id
-      viewer_protocol_policy      = "https-only"
+      viewer_protocol_policy      = "redirect-to-https"
       allowed_methods             = ["GET", "HEAD", "OPTIONS", "PUT", "POST", "PATCH", "DELETE"]
       cached_methods              = ["GET", "HEAD"]
       compress                    = false
