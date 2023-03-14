@@ -7,8 +7,7 @@ resource "aws_secretsmanager_secret" "main" {
   recovery_window_in_days = var.recovery_window_in_days
 }
 
-module "secrets" {
-  source         = "../secrets_from_map"
-  secrets        = var.secrets
-  secret_id      = aws_secretsmanager_secret.main.id
+resource "aws_secretsmanager_secret_version" "main" {
+  secret_id     = aws_secretsmanager_secret.main.id
+  secret_string = jsonencode(var.secrets)
 }

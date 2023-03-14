@@ -8,12 +8,7 @@ output "arn" {
   value       = aws_secretsmanager_secret.main.arn
 }
 
-output "ids" {
-  description = "A pipe delimited combination of secret ID and version ID for all secrets created"
-  value       = module.secrets.ids
-}
-
-output "version_ids" {
-  description = "The unique identifier of the version of the secret for all secrets created"
-  value       = module.secrets.version_ids
+output "version_id" {
+  description = "The unique identifier of the version of the secret"
+  value       = aws_secretsmanager_secret_version.main.version_id
 }

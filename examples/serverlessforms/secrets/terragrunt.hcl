@@ -17,7 +17,7 @@ terraform {
 inputs = {
   name        = "${local.tgvars.env_prefix}-${local.tgvars.app_name}-secrets"
   tags        = local.tgvars.tags
-  secrets     = {
-    DB_USERNAME = dependency.db.outputs.db_instance_username
-  }
+  secrets     = merge(local.tgvars.secrets, {
+    DATABASE_URL  = dependency.db.outputs.endpoint_url
+  })
 }
