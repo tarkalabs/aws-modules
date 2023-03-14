@@ -24,8 +24,8 @@ inputs = {
     ingress_allow_http  = {
       type        = "ingress"
       protocol    = "tcp"
-      from_port   = 80
-      to_port     = 80
+      from_port   = 4000
+      to_port     = 4000
       cidr_blocks = [dependency.networking.outputs.vpc_cidr_block]
     },
     egress_allow_all    = {
