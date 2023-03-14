@@ -3,11 +3,11 @@ include "root" {
 }
 
 dependency "networking" {
-  config_path  = "${get_parent_terragrunt_dir()}/networking"
+  config_path  = "${get_parent_terragrunt_dir()}/networking/core"
 }
 
 dependency "lb_sg" {
-  config_path  = "${get_parent_terragrunt_dir()}/load_balancer/sg_alb"
+  config_path  = "${get_parent_terragrunt_dir()}/networking/sg_alb"
 }
 
 dependency "acm" {

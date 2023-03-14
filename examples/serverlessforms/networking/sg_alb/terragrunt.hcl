@@ -3,7 +3,7 @@ include "root" {
 }
 
 dependency "networking" {
-  config_path  = "${get_parent_terragrunt_dir()}/networking"
+  config_path  = "${get_parent_terragrunt_dir()}/networking/core"
 }
 
 locals {

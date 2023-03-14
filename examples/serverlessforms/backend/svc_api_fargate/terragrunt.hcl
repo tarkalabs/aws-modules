@@ -11,11 +11,11 @@ dependency "ecs_cluster" {
 }
 
 dependency "load_balancer" {
-  config_path  = "${get_parent_terragrunt_dir()}/load_balancer/alb"
+  config_path  = "${get_parent_terragrunt_dir()}/networking/alb"
 }
 
 dependency "networking" {
-  config_path  = "${get_parent_terragrunt_dir()}/networking"
+  config_path  = "${get_parent_terragrunt_dir()}/networking/core"
 }
 
 locals {

@@ -7,7 +7,7 @@ dependency "assets_s3_bucket" {
 }
 
 dependency "load_balancer" {
-  config_path = "${get_parent_terragrunt_dir()}/load_balancer/alb"
+  config_path = "${get_parent_terragrunt_dir()}/networking/alb"
 }
 
 dependency "acm_cert" {
