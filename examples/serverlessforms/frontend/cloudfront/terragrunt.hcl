@@ -6,6 +6,10 @@ dependency "assets_s3_bucket" {
   config_path = "${get_parent_terragrunt_dir()}/frontend/s3_bucket"
 }
 
+dependency "load_balancer" {
+  config_path = "${get_parent_terragrunt_dir()}/load_balancer/alb"
+}
+
 dependency "acm_cert" {
   config_path = "${get_parent_terragrunt_dir()}/acm_certificate"
 }
@@ -39,7 +43,7 @@ inputs       = {
   extra_origins                   = {
     api_origin_id                 = {
       origin_id                   = local.api_origin_id
-      domain_name                 = local.tgvars.api_domain
+      domain_name                 = dependency.load_balancer.outputs.dns_name
       custom_origin_config         = {
         http_port                 = 80
         https_port                = 443
