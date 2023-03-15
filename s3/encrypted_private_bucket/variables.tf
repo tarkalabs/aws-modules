@@ -5,7 +5,7 @@ variable "name" {
 
 variable "sse_algorithm" {
   type     = string
-  default  = "aws:kms"
+  default  = "AES256"
 }
 
 variable "tags" {
