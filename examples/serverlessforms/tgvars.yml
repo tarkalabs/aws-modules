@@ -19,7 +19,6 @@ aws_region:                   us-east-1
 vpc_cidr_block:               10.20.0.0/16
 availability_zones:           ["us-east-1a", "us-east-1b"]
 public_subnets_cidr:          ["10.20.0.0/19", "10.20.32.0/19"]
-open_to_all_cidr_blocks:      ["0.0.0.0/0"] # helps when you want to integrate ipv6 as well
 
 # ACM related
 domain_name:                  serverlessforms.com
