@@ -18,7 +18,7 @@ terraform {
   source      = "${get_path_to_repo_root()}//rds/postgres"
 }
 
-inputs = {
+inputs        = {
   identifier   = "${local.tgvars.env_prefix}-${local.tgvars.app_name}-db"
   tags        = local.tgvars.tags
 

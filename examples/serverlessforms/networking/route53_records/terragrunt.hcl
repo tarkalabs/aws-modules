@@ -14,7 +14,7 @@ terraform {
   source      = "${get_path_to_repo_root()}//route53/records"
 }
 
-inputs = {
+inputs        = {
   zone_name   = local.tgvars.domain_name
   records     = [
     {

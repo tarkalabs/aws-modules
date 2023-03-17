@@ -14,7 +14,7 @@ terraform {
   source      = "${get_path_to_repo_root()}//networking/security-group"
 }
 
-inputs = {
+inputs        = {
   name        = "${local.tgvars.env_prefix}-${local.tgvars.app_name}-api-sg"
   description = "${local.tgvars.app_name} api security group"
   vpc_id      = dependency.networking.outputs.vpc_id
