@@ -48,51 +48,48 @@ inputs = {
     # By default, the module creates a launch template to ensure tags are propagated to instances, etc.,
     # so we need to disable it to use the default template provided by the AWS EKS managed node group service
     use_custom_launch_template      = false
-    use_name_prefix                  = false
-    launch_template_use_name_prefix  = false
-    iam_role_use_name_prefix         = false
+    launch_template_use_name_prefix  = true
+    iam_role_use_name_prefix         = true
     iam_role_attach_cni_policy      = true
     enable_bootstrap_user_data      = true
+    ebs_optimized                   = true
     ami_type                        = local.tgvars.default_eks_instance_ami_type
-    instance_types                  = local.tgvars.default_eks_instance_types
-    vpc_security_group_ids          = [dependency.ssh_sg.outputs.security_group_id]
     remote_access                   = {
       ec2_ssh_key                   = dependency.ssh_key_pair.outputs.name
       source_security_group_ids     = [dependency.ssh_sg.outputs.security_group_id]
     }
+    update_config                    = {
+      max_unavailable_percentage    = 10
+    }
+    private_dns_name_options        = {
+      hostname_type                 = "ip-name"
+    }
   }
   eks_managed_node_groups           = {
-    platform_devops_ng              = {
-      name                          = "${local.tgvars.env_prefix}-${local.tgvars.app_name}-platform-devops-ng"
+    platform-devops-ng              = {
+      name_prefix                    = "${local.tgvars.env_prefix}-${local.tgvars.app_name}-platform-devops-ng"
       iam_role_name                 = "${local.tgvars.env_prefix}-${local.tgvars.app_name}-platform-devops-ng-role"
 
-      ebs_optimized                 = true
-      disk_size                     = local.tgvars.platform_devops_ng_disk_size
+      labels                        = { layer = "platform" }
 
-      labels                        = {
-        layer = "platform"
-      }
+      disk_size                     = local.tgvars.platform_devops_ng_disk_size
+      capacity_type                 = local.tgvars.platform_devops_ng_capacity_type
+      instance_types                = local.tgvars.platform_devops_ng_instance_types
 
       min_size                      = 0
       max_size                      = 2
       desired_size                  = 1
     }
-    app_deploy_ng                   = {
-      name                          = "${local.tgvars.env_prefix}-${local.tgvars.app_name}-app-deploy-ng-spot"
+    app-deploy-ng                   = {
+      name_prefix                    = "${local.tgvars.env_prefix}-${local.tgvars.app_name}-app-deploy-ng"
       iam_role_name                 = "${local.tgvars.env_prefix}-${local.tgvars.app_name}-app-deploy-ng-role"
 
-      capacity_type                 = local.tgvars.app_deploy_ng_capacity_type
-      ebs_optimized                 = true
-      disk_size                     = local.tgvars.app_deploy_ng_disk_size
-
+      labels                        = { layer = "app" }
       taints                        = local.tgvars.app_deploy_ng_taints
-      labels                        = {
-        layer = "apps_deployment"
-      }
 
-      update_config = {
-        max_unavailable_percentage = 10
-      }
+      disk_size                     = local.tgvars.app_deploy_ng_disk_size
+      capacity_type                 = local.tgvars.app_deploy_ng_capacity_type
+      instance_types                = local.tgvars.app_deployment_ng_instance_types
 
       min_size                      = 0
       max_size                      = 2
