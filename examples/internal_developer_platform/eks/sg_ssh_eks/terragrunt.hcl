@@ -15,8 +15,8 @@ terraform {
 }
 
 inputs = {
-  name        = "${local.tgvars.env_prefix}-${local.tgvars.app_name}-lb-sg"
-  description = "${local.tgvars.app_name} load balancer security group"
+  name        = "${local.tgvars.env_prefix}-${local.tgvars.app_name}-eks-ssh-sg"
+  description = "${local.tgvars.app_name} eks ssh access security group"
   vpc_id      = dependency.networking.outputs.vpc_id
   tags        = local.tgvars.tags
 
@@ -24,15 +24,8 @@ inputs = {
     ingress_allow_http  = {
       type        = "ingress"
       protocol    = "tcp"
-      from_port   = 80
-      to_port     = 80
-      cidr_blocks = ["0.0.0.0/0"]
-    },
-    ingress_allow_https = {
-      type        = "ingress"
-      protocol    = "tcp"
-      from_port   = 443
-      to_port     = 443
+      from_port   = 22
+      to_port     = 22
       cidr_blocks = ["0.0.0.0/0"]
     },
     egress_allow_all    = {
