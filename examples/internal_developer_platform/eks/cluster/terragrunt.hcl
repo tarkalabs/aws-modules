@@ -22,7 +22,7 @@ terraform {
   source      = "${get_path_to_repo_root()}//eks/cluster"
 }
 
-inputs = {
+inputs        = {
   cluster_name    = "${local.tgvars.env_prefix}-${local.tgvars.app_name}-eks"
   cluster_version = local.tgvars.cluster_version
   tags            = local.tgvars.tags

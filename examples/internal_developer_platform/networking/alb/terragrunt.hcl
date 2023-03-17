@@ -22,7 +22,7 @@ terraform {
   source      = "${get_path_to_repo_root()}//load_balancer/alb"
 }
 
-inputs = {
+inputs        = {
   name        = "${local.tgvars.env_prefix}-${local.tgvars.app_name}-public-lb"
   tags        = local.tgvars.tags
 

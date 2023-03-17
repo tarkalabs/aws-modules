@@ -14,7 +14,7 @@ terraform {
   source      = "${get_path_to_repo_root()}//networking/security-group"
 }
 
-inputs = {
+inputs        = {
   name        = "${local.tgvars.env_prefix}-${local.tgvars.app_name}-eks-ssh-sg"
   description = "${local.tgvars.app_name} eks ssh access security group"
   vpc_id      = dependency.networking.outputs.vpc_id
