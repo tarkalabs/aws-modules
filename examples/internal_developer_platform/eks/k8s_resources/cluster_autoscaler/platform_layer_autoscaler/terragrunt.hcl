@@ -28,7 +28,9 @@ inputs        = {
 
   values              = [
 <<EOF
-
+extraArgs:
+  # please set below flag to true for production clusters
+  skip-nodes-with-system-pods: false
 rbac:
   serviceAccount:
     name: platform-layer-cluster-autoscaler
