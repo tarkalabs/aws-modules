@@ -11,17 +11,12 @@ provider "helm" {
     host                   = data.aws_eks_cluster.this.endpoint
     cluster_ca_certificate  = base64decode(data.aws_eks_cluster.this.certificate_authority.0.data)
     token                  = data.aws_eks_cluster_auth.this.token
-    load_config_file         = false
   }
 }
 
 resource "helm_release" "main" {
   name                = var.name
   description         = var.description
-  chart               = var.chart_name
-  version             = var.chart_version
-  create_namespace    = var.create_namespace
-  namespace           = var.namespace
   timeout             = var.timeout
   devel               = var.devel
   atomic              = var.atomic
@@ -44,7 +39,11 @@ resource "helm_release" "main" {
   render_subchart_notes      = var.render_subchart_notes
   disable_openapi_validation = var.disable_openapi_validation
 
-  repository                 = var.chart_repository
+  chart                      = var.chart
+  version                    = var.chart_version
+  create_namespace           = var.create_namespace
+  namespace                  = var.namespace
+  repository                 = var.repository
   repository_username        = var.repository_username
   repository_password        = var.repository_password
   repository_key_file         = var.repository_key_file
@@ -54,24 +53,32 @@ resource "helm_release" "main" {
   lint                       = var.lint
   disable_webhooks           = var.disable_webhooks
   dependency_update          = var.dependency_update
-  postrender                 = var.postrender
   pass_credentials           = var.pass_credentials
 
-  dynamic "set" {
-    for_each = var.settings
+  dynamic "postrender" {
+    for_each = var.postrender != null ? [1] : []
     content {
-      name  = set.key
-      value = set.value
-      type  = set.type
+      binary_path  = var.postrender.binary_path
+      args         = lookup(var.postrender, "args", null)
+    }
+  }
+
+  dynamic "set" {
+    for_each = length(var.settings) == 0 ? [] : var.settings
+    content {
+      name  = set.value.name
+      value = set.value.value
+      type  = lookup(set.value, "type", null)
     }
   }
 
   dynamic "set_sensitive" {
-    for_each = var.settings_sensitive
+    # Hack to make for_each work
+    for_each = length(var.settings_sensitive) == 0 ? [] : var.settings_sensitive
     content {
-      name  = set_sensitive.key
-      value = set_sensitive.value
-      type  = set_sensitive.type
+      name  = set_sensitive.value.name
+      value = set_sensitive.value.value
+      type  = lookup(set_sensitive.value, "type", null)
     }
   }
 }

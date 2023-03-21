@@ -11,6 +11,7 @@ variable "eks_cluster_name" {
 variable "description" {
   type          = string
   description   = "Set release description attribute (visible in the history)"
+  default       = null
 }
 
 variable "chart" {
@@ -72,7 +73,7 @@ variable "namespace" {
   default       = null
 }
 
-variable "version" {
+variable "chart_version" {
   type          = string
   description   = "Specify the exact chart version to install. If this is not specified, the latest version is installed. `helm_release` will not automatically grab the latest release, version must explicitly upgraded when upgrading an installed chart."
   default       = null
@@ -175,21 +176,21 @@ variable "wait_for_jobs" {
 }
 
 variable "values" {
-  type          = string
+  type          = list(string)
   description   = "List of values in raw yaml to pass to helm. Values will be merged, in order, as Helm does with multiple `-f` options."
   default       = null
 }
 
 variable "settings" {
-  type          = any
+  type          = list(map(string))
   description   = "List of values in raw yaml to pass to helm. Values will be merged, in order, as Helm does with multiple `-f` options."
-  default       = null
+  default       = []
 }
 
 variable "settings_sensitive" {
-  type          = any
+  type          = list(map(string))
   description   = "Value block with custom sensitive values to be merged with the values yaml that won't be exposed in the plan's diff."
-  default       = null
+  default       = []
   sensitive     = true
 }
 
@@ -206,7 +207,7 @@ variable "replace" {
 }
 
 variable "postrender" {
-  type          = any
+  type          = map(string)
   description   = "Configure a command to run after helm renders the manifest which can alter the manifest contents."
   default       = null
 }
