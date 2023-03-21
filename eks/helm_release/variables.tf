@@ -176,7 +176,7 @@ variable "wait_for_jobs" {
 }
 
 variable "values" {
-  type          = list(string)
+  type          = list(any)
   description   = "List of values in raw yaml to pass to helm. Values will be merged, in order, as Helm does with multiple `-f` options."
   default       = null
 }
