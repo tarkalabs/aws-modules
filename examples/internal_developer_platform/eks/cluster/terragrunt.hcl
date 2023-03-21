@@ -76,9 +76,9 @@ inputs        = {
       capacity_type                 = local.tgvars.platform_devops_ng_capacity_type
       instance_types                = local.tgvars.platform_devops_ng_instance_types
 
-      min_size                      = 0
-      max_size                      = 2
-      desired_size                  = 1
+      desired_size                  = local.tgvars.platform_devops_ng_desired_size
+      min_size                      = local.tgvars.platform_devops_ng_auto_scaling_min_size
+      max_size                      = local.tgvars.platform_devops_ng_auto_scaling_max_size
     }
     app-deploy-ng                   = {
       name_prefix                    = "${local.tgvars.env_prefix}-${local.tgvars.app_name}-app-deploy-ng"
@@ -91,9 +91,9 @@ inputs        = {
       capacity_type                 = local.tgvars.app_deploy_ng_capacity_type
       instance_types                = local.tgvars.app_deployment_ng_instance_types
 
-      min_size                      = 0
-      max_size                      = 2
-      desired_size                  = 1
+      desired_size                  = local.tgvars.app_deploy_ng_desired_size
+      min_size                      = local.tgvars.app_deploy_ng_auto_scaling_min_size
+      max_size                      = local.tgvars.app_deploy_ng_auto_scaling_max_size
     }
   }
 }
