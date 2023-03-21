@@ -30,6 +30,6 @@ data "kubectl_file_documents" "this" {
 # Because of execution order issues, kubernetes resources dependency issues may arise while running.
 # Use manifests_local_exec module which uses kubectl apply for dependent manifests residing in a single file.
 resource "kubectl_manifest" "this" {
-  for_each  = data.kubectl_file_documents.docs.manifests
+  for_each  = data.kubectl_file_documents.this.manifests
   yaml_body = each.value
 }
