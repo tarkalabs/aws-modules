@@ -10,6 +10,10 @@ dependency "eks_cluster" {
   config_path  = "${get_parent_terragrunt_dir()}/eks/cluster"
 }
 
+dependency "tekton_setup" {
+  config_path  = "${get_parent_terragrunt_dir()}/eks/k8s_resources/tekton_apply"
+}
+
 terraform {
   source      = "${get_path_to_repo_root()}//eks/independent_yaml_manifests"
 }
