@@ -168,3 +168,17 @@ output "cloudwatch_log_group_arn" {
   description = "Arn of cloudwatch log group created"
   value       = module.eks.cloudwatch_log_group_arn
 }
+
+################################################################################
+# EKS Managed Node Group
+################################################################################
+
+output "managed_node_groups" {
+  description = "Map of attribute maps for all EKS managed node groups created"
+  value       = module.eks.eks_managed_node_groups
+}
+
+output "managed_node_groups_asg_names" {
+  description = "List of the autoscaling group names created by EKS managed node groups"
+  value       = module.eks.eks_managed_node_groups_autoscaling_group_names
+}
