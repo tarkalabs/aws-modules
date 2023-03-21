@@ -37,11 +37,6 @@ rbac:
 EOF
   ]
 
-# cloudProvider: aws
-# awsRegion: us-east-1
-# awsAccessKeyID: ""
-# awsSecretAccessKey: ""
-
   settings            = [
     {
       name    = "autoDiscovery.clusterName"
