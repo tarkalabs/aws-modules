@@ -27,6 +27,11 @@ dependency "k8s_actions" {
   }
 }
 
+dependency "tekton_setup" {
+  config_path   = "${get_parent_terragrunt_dir()}/eks/k8s_resources/tekton/setup"
+  skip_outputs = true
+}
+
 terraform {
   source       = "${get_path_to_repo_root()}//eks/manifests_local_exec"
 }
