@@ -14,7 +14,7 @@ dependency "eks_cluster" {
 }
 
 terraform {
-  source       = "${get_path_to_repo_root()}//eks/external_dns_oidc_role"
+  source       = "${get_path_to_repo_root()}//eks/external_dns_irsa_role"
 }
 
 inputs         = {
