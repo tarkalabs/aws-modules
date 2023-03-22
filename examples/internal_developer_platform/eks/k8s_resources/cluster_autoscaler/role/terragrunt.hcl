@@ -17,5 +17,5 @@ terraform {
 inputs        = {
   eks_cluster_name            = dependency.eks_cluster.outputs.cluster_name
   oidc_provider_arn           = dependency.eks_cluster.outputs.oidc_provider_arn
-  namespace_service_accounts  = ["kube-system:platform-layer-cluster-autoscaler", "kube-system:app-layer-cluster-autoscaler"]
+  namespace_service_accounts  = ["kube-system:cluster-autoscaler"]
 }
