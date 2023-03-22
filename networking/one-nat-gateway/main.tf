@@ -16,7 +16,6 @@ module "network" {
   default_vpc_enable_dns_support    = true
   default_vpc_enable_dns_hostnames  = true
 
-  enable_s3_endpoint     = true
   enable_nat_gateway     = true
   one_nat_gateway_per_az = false
   single_nat_gateway     = true
