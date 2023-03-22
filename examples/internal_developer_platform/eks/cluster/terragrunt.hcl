@@ -1,9 +1,9 @@
 include "root" {
-  path        = find_in_parent_folders()
+  path         = find_in_parent_folders()
 }
 
 dependency "networking" {
-  config_path  = "${get_parent_terragrunt_dir()}/networking/core"
+  config_path   = "${get_parent_terragrunt_dir()}/networking/core"
   mock_outputs = {
     vpc_id              = "vpc_id"
     private_subnet_ids  = []
@@ -11,28 +11,28 @@ dependency "networking" {
 }
 
 dependency "ssh_key_pair" {
-  config_path  = "${get_parent_terragrunt_dir()}/eks/ssh_key_pair"
+  config_path   = "${get_parent_terragrunt_dir()}/eks/ssh_key_pair"
   mock_outputs = {
     name       = "name"
   }
 }
 
 dependency "ssh_sg" {
-  config_path  = "${get_parent_terragrunt_dir()}/eks/sg_ssh_eks"
+  config_path   = "${get_parent_terragrunt_dir()}/eks/sg_ssh_eks"
   mock_outputs = {
     security_group_id   = "security_group_id"
   }
 }
 
 locals {
-  tgvars      = yamldecode(file("${get_parent_terragrunt_dir()}/tgvars.yml"))
+  tgvars       = yamldecode(file("${get_parent_terragrunt_dir()}/tgvars.yml"))
 }
 
 terraform {
-  source      = "${get_path_to_repo_root()}//eks/cluster"
+  source       = "${get_path_to_repo_root()}//eks/cluster"
 }
 
-inputs        = {
+inputs         = {
   cluster_name    = "${local.tgvars.env_prefix}-${local.tgvars.app_name}-eks"
   cluster_version = local.tgvars.cluster_version
   tags            = local.tgvars.tags
