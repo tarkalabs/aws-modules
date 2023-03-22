@@ -45,6 +45,7 @@ resource "null_resource" "apply" {
     manifests_content  = local_file.manifests.content
     manifests_filename  = local_file.manifests.filename
     kubeconfig_filename  = local_file.kubeconfig.filename
+    kubeconfig_content  = local_file.kubeconfig.content
   }
   provisioner "local-exec" {
     command     = "kubectl apply -f ${local_file.manifests.filename} --kubeconfig=${local_file.kubeconfig.filename}"

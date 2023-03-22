@@ -4,14 +4,24 @@ include "root" {
 
 dependency "networking" {
   config_path  = "${get_parent_terragrunt_dir()}/networking/core"
+  mock_outputs = {
+    vpc_id              = "vpc_id"
+    private_subnet_ids  = []
+  }
 }
 
 dependency "ssh_key_pair" {
   config_path  = "${get_parent_terragrunt_dir()}/eks/ssh_key_pair"
+  mock_outputs = {
+    name       = "name"
+  }
 }
 
 dependency "ssh_sg" {
   config_path  = "${get_parent_terragrunt_dir()}/eks/sg_ssh_eks"
+  mock_outputs = {
+    security_group_id   = "security_group_id"
+  }
 }
 
 locals {

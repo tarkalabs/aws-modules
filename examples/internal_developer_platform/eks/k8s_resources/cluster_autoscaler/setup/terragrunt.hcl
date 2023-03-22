@@ -1,24 +1,30 @@
 include "root" {
-  path        = find_in_parent_folders()
+  path         = find_in_parent_folders()
 }
 
 locals {
-  tgvars      = yamldecode(file("${get_parent_terragrunt_dir()}/tgvars.yml"))
+  tgvars       = yamldecode(file("${get_parent_terragrunt_dir()}/tgvars.yml"))
 }
 
 dependency "eks_cluster" {
-  config_path  = "${get_parent_terragrunt_dir()}/eks/cluster"
+  config_path   = "${get_parent_terragrunt_dir()}/eks/cluster"
+  mock_outputs = {
+    eks_cluster_name = "eks_cluster_name"
+  }
 }
 
 dependency "ca_role" {
-  config_path  = "${get_parent_terragrunt_dir()}/eks/k8s_resources/cluster_autoscaler/role"
+  config_path   = "${get_parent_terragrunt_dir()}/eks/k8s_resources/cluster_autoscaler/role"
+  mock_outputs = {
+    role_arn   = "role_arn"
+  }
 }
 
 terraform {
-  source      = "${get_path_to_repo_root()}//eks/helm_release"
+  source       = "${get_path_to_repo_root()}//eks/helm_release"
 }
 
-inputs        = {
+inputs         = {
   eks_cluster_name    = dependency.eks_cluster.outputs.cluster_name
   name                = "cluster-autoscaler"
   repository          = "https://kubernetes.github.io/autoscaler"
@@ -28,8 +34,8 @@ inputs        = {
 
   settings            = [
     {
-      name    = "autoDiscovery.clusterName"
-      value   = dependency.eks_cluster.outputs.cluster_name
+      name     = "autoDiscovery.clusterName"
+      value    = dependency.eks_cluster.outputs.cluster_name
     }
   ]
 

@@ -2,10 +2,6 @@ include "root" {
   path        = find_in_parent_folders()
 }
 
-dependency "networking" {
-  config_path  = "${get_parent_terragrunt_dir()}/networking/core"
-}
-
 locals {
   tgvars      = yamldecode(file("${get_parent_terragrunt_dir()}/tgvars.yml"))
 }

@@ -1,24 +1,27 @@
 include "root" {
-  path        = find_in_parent_folders()
+  path         = find_in_parent_folders()
 }
 
 dependency "networking" {
-  config_path  = "${get_parent_terragrunt_dir()}/networking/core"
+  config_path   = "${get_parent_terragrunt_dir()}/networking/core"
+  mock_outputs = {
+    vpc_id     = "vpc_id"
+  }
 }
 
 locals {
-  tgvars      = yamldecode(file("${get_parent_terragrunt_dir()}/tgvars.yml"))
+  tgvars       = yamldecode(file("${get_parent_terragrunt_dir()}/tgvars.yml"))
 }
 
 terraform {
-  source      = "${get_path_to_repo_root()}//networking/security-group"
+  source       = "${get_path_to_repo_root()}//networking/security-group"
 }
 
-inputs        = {
-  name        = "${local.tgvars.env_prefix}-${local.tgvars.app_name}-lb-sg"
-  description = "${local.tgvars.app_name} load balancer security group"
-  vpc_id      = dependency.networking.outputs.vpc_id
-  tags        = local.tgvars.tags
+inputs         = {
+  name         = "${local.tgvars.env_prefix}-${local.tgvars.app_name}-lb-sg"
+  description  = "${local.tgvars.app_name} load balancer security group"
+  vpc_id       = dependency.networking.outputs.vpc_id
+  tags         = local.tgvars.tags
 
   security_group_rules  = {
     ingress_allow_http  = {

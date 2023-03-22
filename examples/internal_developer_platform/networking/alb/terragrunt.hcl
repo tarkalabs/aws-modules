@@ -1,30 +1,40 @@
 include "root" {
-  path        = find_in_parent_folders()
+  path         = find_in_parent_folders()
 }
 
 dependency "networking" {
-  config_path  = "${get_parent_terragrunt_dir()}/networking/core"
+  config_path   = "${get_parent_terragrunt_dir()}/networking/core"
+  mock_outputs = {
+    vpc_id            = "vpc_id"
+    public_subnet_ids = []
+  }
 }
 
 dependency "lb_sg" {
-  config_path  = "${get_parent_terragrunt_dir()}/networking/sg_alb"
+  config_path   = "${get_parent_terragrunt_dir()}/networking/sg_alb"
+  mock_outputs = {
+    security_group_id = "security_group_id"
+  }
 }
 
 dependency "acm" {
-  config_path = "${get_parent_terragrunt_dir()}/acm_certificate"
+  config_path   = "${get_parent_terragrunt_dir()}/acm_certificate"
+  mock_outputs = {
+    certificate_arn    = "certificate_arn"
+  }
 }
 
 locals {
-  tgvars      = yamldecode(file("${get_parent_terragrunt_dir()}/tgvars.yml"))
+  tgvars       = yamldecode(file("${get_parent_terragrunt_dir()}/tgvars.yml"))
 }
 
 terraform {
-  source      = "${get_path_to_repo_root()}//load_balancer/alb"
+  source       = "${get_path_to_repo_root()}//load_balancer/alb"
 }
 
-inputs        = {
-  name        = "${local.tgvars.env_prefix}-${local.tgvars.app_name}-public-lb"
-  tags        = local.tgvars.tags
+inputs         = {
+  name         = "${local.tgvars.env_prefix}-${local.tgvars.app_name}-public-lb"
+  tags         = local.tgvars.tags
 
   load_balancer_type         = "application"
   internal                   = false
