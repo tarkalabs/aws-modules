@@ -33,7 +33,7 @@ terraform {
 }
 
 inputs         = {
-  cluster_name    = "${local.tgvars.env_prefix}-${local.tgvars.app_name}-eks"
+  cluster_name    = "${local.tgvars.env_prefix}-${local.tgvars.app_name}-eks-cluster"
   cluster_version = local.tgvars.cluster_version
   tags            = local.tgvars.tags
 
