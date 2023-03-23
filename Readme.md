@@ -46,6 +46,6 @@ To demonstrate how to use these modules, we've provided two examples, one to set
 
 ### Internal Developer Platform(WIP)
 
-[Here](./examples/internal_developer_platform/) you can see, configuring infrastructure for your organization's Internal Developer Platform product on AWS using EKS using [Terragrunt](https://terragrunt.gruntwork.io/docs/#getting-started) modules. Please note that this is a work in progress product and tends to change in future.
+[Here](./examples/internal_developer_platform/) you can see, configuring infrastructure for your organization's Internal Developer Platform product on AWS EKS using [Terragrunt](https://terragrunt.gruntwork.io/docs/#getting-started) modules. Please note that this is a work in progress product and tends to change in future.
 
 Both of these examples, showcases how to configure a complete infrastructure using the modules described above. We hope you find these modules helpful in streamlining your AWS infrastructure deployment. Happy coding! 🚀
