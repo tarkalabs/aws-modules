@@ -32,11 +32,17 @@ dependency "tekton_setup" {
   skip_outputs = true
 }
 
+dependency "platform_resources" {
+  config_path   = "${get_parent_terragrunt_dir()}/eks/k8s_resources/platform_resources"
+  skip_outputs = true
+}
+
 terraform {
   source       = "${get_path_to_repo_root()}//eks/manifests_local_exec"
 }
 
 inputs         = {
   eks_cluster_name    = dependency.eks_cluster.outputs.cluster_name
+  namespace           = local.tgvars.platform_namespace
   yaml_content        = join("\n---\n", [dependency.git_clone.outputs.response_body, dependency.k8s_actions.outputs.response_body])
 }

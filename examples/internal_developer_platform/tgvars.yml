@@ -26,7 +26,8 @@ subject_alternative_names:     ["*.dev.klstr.io"]
 cluster_version:               1.25
 cluster_logs_retention:        14
 kms_key_administrators:        ["vagmi", "Madhava"]
-default_eks_instance_ami_type:  AL2_x86_64
+default_eks_instance_ami_type: AL2_x86_64
+platform_namespace:            idp-platform-devops
 
 platform_devops_ng_disk_size:             30
 platform_devops_ng_capacity_type:         SPOT
