@@ -7,16 +7,24 @@ resource "local_file" "manifests" {
   content  = var.yaml_content
 }
 
-resource "null_resource" "this" {
+resource "null_resource" "update-kubeconfig" {
   triggers      = {
-    manifests_content  = local_file.manifests.content
-    manifests_filename  = local_file.manifests.filename
-    namespace          = var.namespace
+    # Runs `aws eks update-kubeconfig` everytime so that we won't face authorization issues
+    always_run         = timestamp()
   }
 
   provisioner "local-exec" {
     command     = "aws eks update-kubeconfig --region ${var.eks_cluster_region} --name ${var.eks_cluster_name}"
     interpreter = ["/bin/bash", "-c"]
+  }
+}
+
+resource "null_resource" "this" {
+  depends_on    = [ null_resource.update-kubeconfig ]
+  triggers      = {
+    manifests_content  = local_file.manifests.content
+    manifests_filename  = local_file.manifests.filename
+    namespace          = local.namespace
   }
 
   provisioner "local-exec" {
@@ -26,7 +34,7 @@ resource "null_resource" "this" {
 
   provisioner "local-exec" {
     when        = destroy
-    command     = "kubectl delete -f ${self.triggers.manifests_filename}"
+    command     = "kubectl delete --ignore-not-found=true -n ${self.triggers.namespace} -f ${self.triggers.manifests_filename}"
     interpreter = ["/bin/bash", "-c"]
   }
 }
