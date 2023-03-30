@@ -5,7 +5,7 @@ include "root" {
 dependency "eks_cluster" {
   config_path  = "${get_parent_terragrunt_dir()}/eks/cluster"
   mock_outputs = {
-    eks_cluster_name = "eks_cluster_name"
+    cluster_name = "eks_cluster_name"
   }
 }
 
