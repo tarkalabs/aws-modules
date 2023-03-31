@@ -5,7 +5,7 @@ include "root" {
 locals {
   tgvars       = yamldecode(file("${get_parent_terragrunt_dir()}/tgvars.yml"))
   storage_classes_yaml  = file("${get_original_terragrunt_dir()}/manifests/storage_classes.yml")
-  namespace_yaml        = templatefile("${get_original_terragrunt_dir()}/manifests/namespace.tftpl", {
+  namespace_yaml        = templatefile("${get_original_terragrunt_dir()}/manifests/namespace.yml.tftpl", {
     namespace  = local.tgvars.platform_namespace
   })
 }

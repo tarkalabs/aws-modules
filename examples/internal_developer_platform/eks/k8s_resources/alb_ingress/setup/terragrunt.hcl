@@ -32,6 +32,14 @@ inputs         = {
     {
       name     = "clusterName"
       value    = dependency.eks_cluster.outputs.cluster_name
+    },
+    {
+      name     = "ingressClass"
+      value    = "shared-alb"
+    },
+    {
+      name     = "ingressClassConfig.default"
+      value    = true
     }
   ]
   values             = [
