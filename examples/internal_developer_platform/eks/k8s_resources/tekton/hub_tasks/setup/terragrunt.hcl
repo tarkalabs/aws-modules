@@ -27,8 +27,8 @@ dependency "k8s_actions" {
   }
 }
 
-dependency "tekton_setup" {
-  config_path   = "${get_parent_terragrunt_dir()}/eks/k8s_resources/tekton/setup"
+dependency "pipelines_setup" {
+  config_path   = "${get_parent_terragrunt_dir()}/eks/k8s_resources/tekton/pipelines/setup"
   skip_outputs = true
 }
 

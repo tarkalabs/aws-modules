@@ -14,7 +14,7 @@ dependency "eks_cluster" {
 }
 
 dependency "tekton_setup" {
-  config_path   = "${get_parent_terragrunt_dir()}/eks/k8s_resources/tekton/setup"
+  config_path   = "${get_parent_terragrunt_dir()}/eks/k8s_resources/tekton/pipelines/setup"
   skip_outputs = true
 }
 
@@ -25,4 +25,5 @@ terraform {
 inputs         = {
   eks_cluster_name    = dependency.eks_cluster.outputs.cluster_name
   yaml_content        = file("${get_original_terragrunt_dir()}/tekton_default_config.yml")
+  namespace           = "tekton-pipelines"
 }
