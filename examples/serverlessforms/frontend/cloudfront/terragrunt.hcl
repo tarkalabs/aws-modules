@@ -64,6 +64,8 @@ inputs       = {
       # https://us-east-1.console.aws.amazon.com/cloudfront/v3/home?region=us-east-1#/policies/origin
       cache_policy_id             = "4135ea2d-6df8-44a3-9df3-4b5a84be39ad" # Managed-CachingDisabled
       # https://us-east-1.console.aws.amazon.com/cloudfront/v3/home?region=us-east-1#/policies/cache
+      response_headers_policy_id  = "5cc3b908-e619-4b99-88e5-2cf7f45965bd" # Managed-CORS-With-Preflight
+      # https://us-east-1.console.aws.amazon.com/cloudfront/v3/home?region=us-east-1#/policies/responseHeaders
       use_forwarded_values        = false # explicitly needed when using cache_policy_id
     }
   ]
