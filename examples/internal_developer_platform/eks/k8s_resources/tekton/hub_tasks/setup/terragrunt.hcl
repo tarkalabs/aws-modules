@@ -27,6 +27,13 @@ dependency "k8s_actions" {
   }
 }
 
+dependency "kaniko" {
+  config_path   = "${get_parent_terragrunt_dir()}/eks/k8s_resources/tekton/hub_tasks/kaniko"
+  mock_outputs = {
+    response_body     = "response_body"
+  }
+}
+
 dependency "pipelines_setup" {
   config_path   = "${get_parent_terragrunt_dir()}/eks/k8s_resources/tekton/pipelines/setup"
   skip_outputs = true
@@ -38,11 +45,15 @@ dependency "platform_resources" {
 }
 
 terraform {
-  source       = "${get_path_to_repo_root()}//eks/manifests_local_exec"
+  source       = "${get_path_to_repo_root()}//eks/independent_yaml_manifests"
 }
 
 inputs         = {
   eks_cluster_name    = dependency.eks_cluster.outputs.cluster_name
-  namespace           = local.tgvars.platform_namespace
-  yaml_content        = join("\n---\n", [dependency.git_clone.outputs.response_body, dependency.k8s_actions.outputs.response_body])
+  override_namespace  = local.tgvars.platform_namespace
+  yaml_content        = join("\n---\n", [
+    dependency.git_clone.outputs.response_body,
+    dependency.k8s_actions.outputs.response_body,
+    dependency.kaniko.outputs.response_body
+  ])
 }
