@@ -11,9 +11,12 @@ terraform {
 }
 
 inputs    = {
-  vpc_name            = "${local.tgvars.app_slug_name}-${local.tgvars.env_prefix}-vpc"
-  vpc_cidr_block      = local.tgvars.vpc_cidr_block
-  availability_zones  = local.tgvars.availability_zones
-  public_subnets_cidr = local.tgvars.public_subnets_cidr
-  tags                = local.tgvars.tags
+  vpc_name              = "${local.tgvars.app_slug_name}-${local.tgvars.env_prefix}-vpc"
+  vpc_cidr_block        = local.tgvars.vpc_cidr_block
+  availability_zones    = local.tgvars.availability_zones
+  public_subnets_cidr   = local.tgvars.public_subnets_cidr
+  tags                  = local.tgvars.tags
+
+  enable_dns_hostnames  = true
+  enable_dns_support    = true
 }
