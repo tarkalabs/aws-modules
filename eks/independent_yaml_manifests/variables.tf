@@ -5,5 +5,11 @@ variable "eks_cluster_name" {
 
 variable "yaml_content" {
   type          = string
-  description   = "Kubernetes yaml manifest content"
+  description   = "Required. YAML to apply to kubernetes."
+}
+
+variable "override_namespace" {
+  type          = string
+  description   = "Optional. Override the namespace to apply the kubernetes resource to, ignoring any declared namespace in the `yaml_body`."
+  default       = null
 }

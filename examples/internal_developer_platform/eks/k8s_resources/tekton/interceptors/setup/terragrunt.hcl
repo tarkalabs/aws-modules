@@ -13,8 +13,13 @@ dependency "eks_cluster" {
   }
 }
 
-dependency "tekton_pipeline_yaml" {
-  config_path   = "${get_parent_terragrunt_dir()}/eks/k8s_resources/tekton/get_pipeline_yml"
+dependency "pipelines_setup" {
+  config_path   = "${get_parent_terragrunt_dir()}/eks/k8s_resources/tekton/pipelines/setup"
+  skip_outputs = true
+}
+
+dependency "setup_yml" {
+  config_path   = "${get_parent_terragrunt_dir()}/eks/k8s_resources/tekton/interceptors/get_setup_yml"
   mock_outputs = {
     response_body     = "response_body"
   }
@@ -26,5 +31,6 @@ terraform {
 
 inputs         = {
   eks_cluster_name    = dependency.eks_cluster.outputs.cluster_name
-  yaml_content        = dependency.tekton_pipeline_yaml.outputs.response_body
+  yaml_content        = dependency.setup_yml.outputs.response_body
+  namespace           = "tekton-pipelines"
 }

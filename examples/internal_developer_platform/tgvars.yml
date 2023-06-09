@@ -26,20 +26,21 @@ subject_alternative_names:     ["*.dev.klstr.io"]
 cluster_version:               1.25
 cluster_logs_retention:        14
 kms_key_administrators:        ["vagmi", "Madhava"]
-default_eks_instance_ami_type:  AL2_x86_64
+default_eks_instance_ami_type: AL2_x86_64
+platform_namespace:            idp-platform-devops
 
 platform_devops_ng_disk_size:             30
 platform_devops_ng_capacity_type:         SPOT
-platform_devops_ng_instance_types:        ["m6a.xlarge", "m5a.xlarge", "m6i.xlarge", "m5.xlarge", "m4.xlarge"]
+platform_devops_ng_instance_types:        ["m6a.large", "m5a.large", "m6i.large", "m5.large", "m4.large"]
 platform_devops_ng_desired_size:          1
-platform_devops_ng_auto_scaling_min_size: 1
+platform_devops_ng_auto_scaling_min_size: 0
 platform_devops_ng_auto_scaling_max_size: 4
 
 app_deploy_ng_disk_size:                  50
 app_deploy_ng_capacity_type:              SPOT
-app_deployment_ng_instance_types:         ["m6a.xlarge", "m5a.xlarge", "m6i.xlarge", "m5.xlarge", "m4.xlarge"]
-app_deploy_ng_desired_size:               1
-app_deploy_ng_auto_scaling_min_size:      1
+app_deployment_ng_instance_types:         ["m6a.large", "m5a.large", "m6i.large", "m5.large", "m4.large"]
+app_deploy_ng_desired_size:               0
+app_deploy_ng_auto_scaling_min_size:      0
 app_deploy_ng_auto_scaling_max_size:      10
 app_deploy_ng_taints:
   - key:    dedicated

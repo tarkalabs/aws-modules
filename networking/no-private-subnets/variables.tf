@@ -21,3 +21,13 @@ variable "public_subnets_cidr" {
 variable "tags" {
   type      = map(string)
 }
+
+variable "enable_dns_hostnames" {
+  type      = bool
+  default   = false
+}
+
+variable "enable_dns_support" {
+  type      = bool
+  default   = false
+}

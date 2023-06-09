@@ -5,7 +5,12 @@ data "aws_eks_cluster_auth" "this" {
 provider "kubernetes" {
   host                   = module.eks.cluster_endpoint
   cluster_ca_certificate = base64decode(module.eks.cluster_certificate_authority_data)
-  token                  = data.aws_eks_cluster_auth.this.token
+  exec {
+    api_version = "client.authentication.k8s.io/v1beta1"
+    command     = "aws"
+    # This requires the awscli to be installed locally where Terraform is executed
+    args = ["eks", "get-token", "--cluster-name", var.cluster_name]
+  }
 }
 
 module "eks" {
@@ -36,6 +41,10 @@ module "eks" {
           WARM_PREFIX_TARGET          = "1"
         }
       })
+    }
+    aws-ebs-csi-driver           = {
+      most_recent                = true
+      service_account_role_arn   = module.ebs_csi_irsa.iam_role_arn
     }
   })
 
@@ -89,6 +98,22 @@ module "vpc_cni_irsa" {
     main                 = {
       provider_arn               = module.eks.oidc_provider_arn
       namespace_service_accounts = ["kube-system:aws-node"]
+    }
+  }
+}
+
+module "ebs_csi_irsa" {
+  source  = "terraform-aws-modules/iam/aws//modules/iam-role-for-service-accounts-eks"
+  version = "~> 5.13"
+
+  role_name              = "${var.cluster_name}-ebs-csi-irsa-role"
+  attach_ebs_csi_policy  = true
+  tags                   = var.tags
+
+  oidc_providers         = {
+    main                 = {
+      provider_arn               = module.eks.oidc_provider_arn
+      namespace_service_accounts = ["kube-system:ebs-csi-controller-sa"]
     }
   }
 }

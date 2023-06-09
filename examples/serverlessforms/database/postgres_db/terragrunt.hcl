@@ -28,12 +28,12 @@ inputs        = {
   storage_type         = "gp3"
   allocated_storage    = 25
   multi_az             = false
-  publicly_accessible  = false
+  publicly_accessible  = true
   db_name              = local.tgvars.app_name
   username             = "${local.tgvars.app_name}"
 
   create_cloudwatch_log_group    = true
-  deletion_protection            = false
+  deletion_protection            = true
   skip_final_snapshot             = false
   copy_tags_to_snapshot          = true
 

@@ -8,4 +8,7 @@ module "network" {
   private_subnets = []
   public_subnets  = var.public_subnets_cidr
   tags            = var.tags
+
+  enable_dns_hostnames = var.enable_dns_hostnames
+  enable_dns_support   = var.enable_dns_support
 }
