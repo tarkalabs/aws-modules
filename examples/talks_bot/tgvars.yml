@@ -1,0 +1,29 @@
+# Application related
+app_name:                     talksbot
+app_slug_name:                talksbot
+env_prefix:                    prod
+app_domains:                  ["talksbot.tarkalabs.com"]
+api_path_prefix:               "/*"
+tags:
+  Application: talksbot
+  IacProvider: terragrunt
+  Environment: production
+  AdminEmail:  madhav@tarkalabs.com
+
+# Terraform state storage related
+tf_backend_s3_bucket_region:  us-east-1
+tf_backend_s3_bucket:         tarkalabs-terraform
+
+# Networking related
+aws_region:                   us-east-1
+vpc_cidr_block:               10.30.0.0/16
+availability_zones:           ["us-east-1a", "us-east-1b"]
+public_subnets_cidr:          ["10.30.0.0/19", "10.30.32.0/19"]
+
+# ACM related
+cert_arn:                     arn:aws:acm:us-east-1:260741046218:certificate/8ea1c152-808c-438a-8183-a8e535640695
+
+# Application secrets related
+# As files will be residing in git, it's better to keep non sensitive secrets here
+secrets:
+  WIKI_LINK:                  https://wiki.tarkalabs.com/en/internal-tech-talks
