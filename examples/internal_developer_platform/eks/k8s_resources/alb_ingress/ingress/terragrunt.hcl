@@ -15,6 +15,9 @@ dependency "networking" {
 
 dependency "acm_cert" {
   config_path = "${get_parent_terragrunt_dir()}/acm_certificate"
+  mock_outputs = {
+    certificate_arn = "certificate_arn"
+  }
 }
 
 dependency "eks_cluster" {
